@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+<h1 align="center">🚀 Antichess Frontend Project 🚀</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br/>
 
-## Available Scripts
+<h3 align="justify" width="80%">
+Antichess is a variant of chess where the goal is to sacrifice all your pieces before your opponent does. This project implements the basic rules of Antichess, allowing two players to play in the same UI. Players take turns making moves and have the option to quit the game. Capturing is mandatory in this variant, and the system enforces the rules to ensure a fair gameplay experience.
+</h3>
 
-In the project directory, you can run:
+<br/>
 
-### `npm start`
+### Project Deployment
+👉 [Play Antichess Now](https://ayushi-antichess.vercel.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br/>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<h2 align="left">
+<img src="https://art.pixilart.com/486745d4bb1ef18.gif"  width="20" height="20" align="center">
+ Technologies Used
+<img src="https://art.pixilart.com/486745d4bb1ef18.gif"  width="20" height="20" align="center">
+</h2>
 
-### `npm test`
+<div align="center">
+ 
+ <div align="center"><h3 align="center">Frontend</h3>
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"  align="center" alt="reactjs" />
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"  align="center" alt="tailwindcss" />
+</div>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<div align="center"><h3 align="center">Tools</h3> 
+<img src="https://img.shields.io/badge/Vercel-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7" align="center" alt="netlify"/>
+<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"  align="center" alt="github"/>
+<img src ="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white" align="center" alt="npm">
+</div>
+</div>
 
-### `npm run build`
+<div align="center"><h3 align="center">Deployed On:</h3>
+  <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7"  alt="netlify"/>
+</div>
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Gameplay**: Two players alternate turns, making moves according to the rules of Antichess.
+- **Quit Option**: Players can choose to quit the game, resulting in a win for the remaining player.
+- **Error Handling**: Invalid moves are promptly highlighted, and players are prompted to make valid moves.
+- **Victory Notification**: Displays the winner when one player successfully sacrifices all their pieces.
 
-### `npm run eject`
+<br/>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Screenshots
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Gameplay
+![Screenshot 2024-07-11 002241](https://github.com/AyushiVashisth/antichess/assets/107119119/fe9ff6fc-d264-48d7-8efa-d405cda0f3e0)
+![Screenshot 2024-07-11 002328](https://github.com/AyushiVashisth/antichess/assets/107119119/7f3171f7-19cf-4873-a5fa-162664c4c711)
+![Screenshot 2024-07-11 002317](https://github.com/AyushiVashisth/antichess/assets/107119119/39a28c47-88ec-40a8-908a-b1ad1592b093)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Setup Instructions
 
-## Learn More
+## Prerequisites
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Node.js
+- npm
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Installation
 
-### Code Splitting
+1. Clone the repository to your local machine:
+   ```sh
+   git clone https://github.com/your-username/antichess.git
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Navigate to the project directory:
+   ```sh
+   cd antichess
+   ```
 
-### Analyzing the Bundle Size
+3. Install the required dependencies:
+   ```sh
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. Start the development server:
+   ```sh
+   npm start
+   ```
 
-### Making a Progressive Web App
+5. Open your browser and navigate to `http://localhost:3000` to play Antichess.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<br/>
 
-### Advanced Configuration
+# Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This project is deployed using Vercel. Visit [Play Antichess Now](https://ayushi-antichess.vercel.app/) to start playing!
 
-### Deployment
+<br/><br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Show your support
 
-### `npm run build` fails to minify
+Give a ⭐️ if you like this project!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h1 align="center">✨ Have Fun Playing Antichess! ✨</h1>
