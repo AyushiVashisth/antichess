@@ -8,13 +8,6 @@ const ChessGame = () => {
   const [game, setGame] = useState(new Chess());
   const [turn, setTurn] = useState("w"); // 'w' for white, 'b' for black
 
-//   const checkMandatoryCapture = (gameInstance, color) => {
-//     const moves = gameInstance.moves({ verbose: true });
-//     return moves.some(
-//       (move) => move.color === color && move.flags.includes("c")
-//     );
-//   };
-
   const getCaptureMoves = (gameInstance, color) => {
     const moves = gameInstance.moves({ verbose: true });
     return moves.filter(
@@ -104,35 +97,41 @@ const ChessGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex justify-between w-full p-4">
+    <div className="flex flex-col items-center w-full h-full">
+      <div className="flex flex-col sm:flex-row sm:justify-center w-full p-4 mb-4">
         <button
           disabled={turn !== "w"}
-          className={`px-4 py-2 rounded ${turn === "w" ? "bg-green-500" : "bg-gray-800"} hover:bg-green-600 focus:outline-none`}
+          className={`w-full sm:w-auto px-4 py-2 mb-4 sm:mb-0 mr-0 sm:mr-4 rounded ${
+            turn === "w" ? "bg-green-500" : "bg-gray-800"
+          } hover:bg-green-600 focus:outline-none`}
         >
           Player 1 (White)
         </button>
         <button
           disabled={turn !== "b"}
-          className={`px-4 py-2 rounded ${turn === "b" ? "bg-green-500" : "bg-gray-800"} hover:bg-green-600 focus:outline-none`}
+          className={`w-full sm:w-auto px-4 py-2 rounded ${
+            turn === "b" ? "bg-green-500" : "bg-gray-800"
+          } hover:bg-green-600 focus:outline-none`}
         >
           Player 2 (Black)
         </button>
       </div>
-      <Chessboard
-        position={game.fen()}
-        onPieceDrop={(sourceSquare, targetSquare) =>
-          onMove(sourceSquare, targetSquare)
-        }
-        boardStyle={{
-          borderRadius: "5px",
-          boxShadow: "0px 5px 15px rgba(0,0,0,0.3)",
-        }}
-      />
-      <div className="mt-4">
+      <div className="w-[90%] lg:w-full max-w-md">
+        <Chessboard
+          position={game.fen()}
+          onPieceDrop={(sourceSquare, targetSquare) =>
+            onMove(sourceSquare, targetSquare)
+          }
+          boardStyle={{
+            borderRadius: "5px",
+            boxShadow: "0px 5px 15px rgba(0,0,0,0.3)"
+          }}
+        />
+      </div>
+      <div className="mt-4 w-full max-w-xs">
         <button
           onClick={handleQuit}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none"
+          className="w-[90%] mb-4 lg:w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none"
         >
           Quit
         </button>
