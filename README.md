@@ -10,6 +10,8 @@ Antichess is a variant of chess where the goal is to sacrifice all your pieces b
 
 ### Project Deployment
 👉 [Play Antichess Now](https://ayushi-antichess.vercel.app/)
+👉 [Play Antichess Document file](https://docs.google.com/document/d/1QuK6Cn_Sjk4leJUY06i0QGiGK7lu5hGVQFV7Q1N-fcU/edit?usp=sharing)
+
 
 <br/>
 
