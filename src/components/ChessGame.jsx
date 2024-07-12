@@ -1,18 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import moveSound from "./game-end.mp3";
+import captureSound from "./capture.mp3";
+
 const ChessGame = () => {
   const [game, setGame] = useState(new Chess());
   const [turn, setTurn] = useState("w"); // 'w' for white, 'b' for black
+  const [selectedSquare, setSelectedSquare] = useState(null);
+  const [possibleMoves, setPossibleMoves] = useState([]);
+  const [captureMoves, setCaptureMoves] = useState([]);
+
+  const moveSoundRef = useRef(new Audio(moveSound));
+  const captureSoundRef = useRef(new Audio(captureSound));
 
   const getCaptureMoves = (gameInstance, color) => {
     const moves = gameInstance.moves({ verbose: true });
     return moves.filter(
       (move) => move.color === color && move.flags.includes("c")
     );
+  };
+
+  const updateCaptureMoves = () => {
+    const mandatoryCaptures = getCaptureMoves(game, turn);
+    setCaptureMoves(mandatoryCaptures);
+  };
+
+  useEffect(() => {
+    updateCaptureMoves();
+    // eslint-disable-next-line
+  }, [turn]);
+
+  const playSound = (sound) => {
+    switch (sound) {
+      case "move":
+        moveSoundRef.current.play();
+        break;
+      case "capture":
+        captureSoundRef.current.play();
+        break;
+      case "error":
+        // Handle error sound
+        break;
+      default:
+        break;
+    }
   };
 
   const isValidMove = (piece, from, to) => {
@@ -58,10 +93,12 @@ const ChessGame = () => {
   const onMove = (sourceSquare, targetSquare) => {
     const piece = game.get(sourceSquare);
     if (!piece) {
+      playSound("error");
       toast.error("No piece on the selected square.");
       return false;
     }
     if (piece.color !== turn) {
+      playSound("error");
       toast.error("Not your turn. You cannot move this piece.");
       return false;
     }
@@ -70,11 +107,13 @@ const ChessGame = () => {
     const move = newGame.move({ from: sourceSquare, to: targetSquare });
 
     if (!move) {
+      playSound("error");
       toast.error("Invalid move. Please try again.");
       return false;
     }
 
     if (!isValidMove(piece, sourceSquare, targetSquare)) {
+      playSound("error");
       toast.error("Invalid move for this piece.");
       return false;
     }
@@ -87,13 +126,70 @@ const ChessGame = () => {
 
     setGame(newGame);
     setTurn(turn === "w" ? "b" : "w");
+    setSelectedSquare(null);
+    setPossibleMoves([]);
+    setCaptureMoves(mandatoryCaptures);
+    playSound("move");
     toast.success(`Next turn: ${turn === "w" ? "Black" : "White"} moved.`);
     return true;
+  };
+
+  const handlePieceClick = (square) => {
+    const piece = game.get(square);
+    if (piece && piece.color === turn) {
+      const moves = game
+        .moves({ square, verbose: true })
+        .map((move) => move.to);
+      const mandatoryCaptures = getCaptureMoves(game, turn);
+      if (mandatoryCaptures.length > 0) {
+        const capturingPieceSquares = mandatoryCaptures.map(
+          (move) => move.from
+        );
+        if (capturingPieceSquares.includes(square)) {
+          const captureMovesForPiece = mandatoryCaptures
+            .filter((move) => move.from === square)
+            .map((move) => move.to);
+          setSelectedSquare(square);
+          setPossibleMoves(captureMovesForPiece);
+        } else {
+          toast.error(
+            "Mandatory capture move available. Select a capturing piece."
+          );
+        }
+      } else {
+        setSelectedSquare(square);
+        setPossibleMoves(moves);
+      }
+    } else {
+      if (selectedSquare) {
+        if (possibleMoves.includes(square)) {
+          onMove(selectedSquare, square);
+        } else {
+          toast.error("Invalid move. Select a valid target square.");
+        }
+      }
+    }
   };
 
   const handleQuit = () => {
     toast.info(`Player ${turn === "w" ? "Black" : "White"} wins!`);
     setGame(new Chess());
+    setCaptureMoves([]);
+  };
+
+  const getCustomSquareStyles = () => {
+    const styles = {};
+    possibleMoves.forEach((move) => {
+      styles[move] = {
+        backgroundColor: "rgba(0, 255, 0, 0.4)",
+      };
+    });
+    captureMoves.forEach((move) => {
+      styles[move.to] = {
+        backgroundColor: "rgba(255, 0, 0, 0.4)",
+      };
+    });
+    return styles;
   };
 
   return (
@@ -119,9 +215,8 @@ const ChessGame = () => {
       <div className="w-[90%] lg:w-full max-w-md">
         <Chessboard
           position={game.fen()}
-          onPieceDrop={(sourceSquare, targetSquare) =>
-            onMove(sourceSquare, targetSquare)
-          }
+          onSquareClick={handlePieceClick}
+          customSquareStyles={getCustomSquareStyles()}
           boardStyle={{
             borderRadius: "5px",
             boxShadow: "0px 5px 15px rgba(0,0,0,0.3)"
@@ -142,3 +237,5 @@ const ChessGame = () => {
 };
 
 export default ChessGame;
+
+
