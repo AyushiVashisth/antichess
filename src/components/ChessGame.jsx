@@ -9,7 +9,7 @@ import captureSound from "./capture.mp3";
 
 const ChessGame = () => {
   const [game, setGame] = useState(new Chess());
-  const [turn, setTurn] = useState("w"); // 'w' for white, 'b' for black
+  const [turn, setTurn] = useState("w"); 
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [captureMoves, setCaptureMoves] = useState([]);
@@ -90,7 +90,7 @@ const ChessGame = () => {
     }
   };
 
-  const onMove = (sourceSquare, targetSquare) => {
+  const makeMove = (sourceSquare, targetSquare) => {
     const piece = game.get(sourceSquare);
     if (!piece) {
       playSound("error");
@@ -129,9 +129,13 @@ const ChessGame = () => {
     setSelectedSquare(null);
     setPossibleMoves([]);
     setCaptureMoves(mandatoryCaptures);
-    playSound("move");
+    playSound(move.flags.includes("c") ? "capture" : "move");
     toast.success(`Next turn: ${turn === "w" ? "Black" : "White"} moved.`);
     return true;
+  };
+
+  const onDrop = (sourceSquare, targetSquare) => {
+    return makeMove(sourceSquare, targetSquare);
   };
 
   const handlePieceClick = (square) => {
@@ -163,7 +167,7 @@ const ChessGame = () => {
     } else {
       if (selectedSquare) {
         if (possibleMoves.includes(square)) {
-          onMove(selectedSquare, square);
+          makeMove(selectedSquare, square);
         } else {
           toast.error("Invalid move. Select a valid target square.");
         }
@@ -216,6 +220,7 @@ const ChessGame = () => {
         <Chessboard
           position={game.fen()}
           onSquareClick={handlePieceClick}
+          onPieceDrop={onDrop}
           customSquareStyles={getCustomSquareStyles()}
           boardStyle={{
             borderRadius: "5px",
